@@ -1,37 +1,46 @@
-let timer = 30;
+let timer = 5;
 let score = 0;
-
+let isGameRunning = true;
 function runTimer() {
+
     const timeInt = setInterval(function () {
         if (timer > 0) {
             timer--;
             document.getElementById('timerVal').textContent = timer;
-            makeBubbles();
+            for (let i = 0; i < 2; i++) {
+                makeBubbles();
+            }
         } else {
             clearInterval(timeInt);
+            isGameRunning = false;
             displayGameOver()
         }
     }, 1000);
 }
 
 function displayGameOver() {
-    
     const gameOverScore = document.querySelector('#scoreVal')
     const gameOver = document.createElement("div");
     gameOver.className = "game-over";
     gameOver.textContent = "Game Over!!! Your score is " + gameOverScore.textContent;
 
-    gameOver.style.position = 'absolute';
-    gameOver.style.top = '50%';
-    gameOver.style.left = '50%';
-    gameOver.style.transform = 'translate(-50%, -50%)';
-    gameOver.style.fontSize = '2rem';
-    gameOver.style.color = 'green';
-    gameOver.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    gameOver.style.padding = '20px';
-    gameOver.style.borderRadius = '10px';
-    gameOver.style.textAlign = 'center';
+    // restart button
+    const restartButton = document.createElement('button');
+    restartButton.textContent = 'Restart';
+    restartButton.className = 'restartButton';
+    restartButton.addEventListener('click', () => {
+        console.log('restart');
 
+        timer = 30;
+        score = 0;
+        isGameRunning = true;
+        document.getElementById('scoreVal').textContent = score;
+        document.getElementById('timerVal').textContent = timer;
+        document.querySelector('.game-over').remove();
+        runTimer();
+        document.querySelectorAll('.bubble').forEach(bubble => bubble.remove());
+    });
+    gameOver.appendChild(restartButton);
     document.querySelector('.pbtm').appendChild(gameOver);
 }
 
@@ -47,18 +56,23 @@ function genRndLetters() {
 }
 
 function makeBubbles() {
-    let divGen = `<div class="bubble">${genRndLetters()}</div>`;
-    document.querySelector('.pbtm').innerHTML += divGen;
+    let bubble = document.createElement("div");
+    bubble.textContent = genRndLetters();
+    bubble.className = "bubble";
+    document.querySelector('.pbtm').appendChild(bubble);
 
-    const bubble = document.querySelector('.pbtm .bubble:last-child');
     bubble.style.position = 'absolute';
     bubble.style.bottom = '0%';
-    bubble.style.left = Math.floor(Math.random() * 70) + "%";
+    bubble.style.left = Math.floor((Math.random() * 70) + 10) + "%";
 
     let bottomPosition = 0;
     const bubbleMoveInt = setInterval(function () {
+        if (!isGameRunning) {
+            clearInterval(bubbleMoveInt);
+            return;
+        }
         if (bottomPosition < 90) {
-            bottomPosition += 18;
+            bottomPosition += 5;
             bubble.style.bottom = `${bottomPosition}%`;
         } else {
             bubble.remove();
@@ -70,7 +84,7 @@ function makeBubbles() {
 document.addEventListener('keydown', (e) => {
     const key = e.key.toUpperCase();
     const bubbles = document.querySelectorAll('.bubble');
-    
+
     bubbles.forEach(bubble => {
         if (bubble.textContent === key) {
             increaseScore();

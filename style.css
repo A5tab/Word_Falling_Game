@@ -5,7 +5,8 @@
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
 }
@@ -13,21 +14,23 @@ html, body {
 main {
     width: 100%;
     height: 100%;
-    background-color: rgb(27, 194, 71);
+    background-color: rgba(54, 25, 135, 0.363);
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .panel {
     width: 80%;
     height: 80%;
-    background-color: rgb(47, 154, 75);
+    background-color: rgba(0, 0, 0, 0.6);
     border-radius: 20px;
     overflow: hidden;
 }
 
 .ptop {
-    background-color: rgb(153, 206, 167);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
     width: 100%;
     height: 100px;
     display: flex;
@@ -44,8 +47,12 @@ main {
     align-items: center;
     justify-content: center;
 }
+
 .box {
-    background-color: whitesmoke;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     width: 30px;
     border-radius: 2px;
     display: flex;
@@ -54,34 +61,53 @@ main {
 }
 
 .pbtm {
-    background-color: white;
+    background-image: url('https://img.freepik.com/free-photo/beautiful-mountains-landscape_23-2150787932.jpg?ga=GA1.1.1175893756.1735748675&semt=ais_hybrid&w=940');
     width: 100%;
     height: calc(100% - 100px);
     display: flex;
     position: relative;
+    background-size: cover;
+    background-position: center;
 }
 
 .pbtm .bubble {
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #000;
+    border: 2px solid #00cc66;
+    box-shadow: 0 0 10px #00cc66;
     font-weight: 700;
     font-size: large;
     width: 5%;
     height: 10%;
-    background-color: rgba(116, 189, 6, 0.667);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.game-over {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: rgb(250, 250, 250);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.restartButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: rgb(109, 53, 207);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
